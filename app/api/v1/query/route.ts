@@ -7,25 +7,26 @@ dotenv.config();
 
 export async function POST(request: NextRequest) {
     const AUTH_MICROSERVICE_URL = process.env.AUTH_MICROSERVICE_URL!;
-    const { user_id, url, ...data } = await request.json();
-    const redisKey = `user_urls:${user_id}`;
+    
+    const body = await request.json(); // Read it only once
+    console.log(body); // Use the already-read body
+    const redisKey = `user_urls:${body.user_id}`;
 
     try {
-        const redisValue = await redis.get(redisKey);
-        console.log('Redis Value:', redisValue);  // Debugging log for redisValue
+        const url = await redis.get(redisKey);
+        console.log({ ...body, url });
 
-        // Check that redisValue matches the URL and the required fields are present
-        if (redisValue && redisValue === url && user_id && url && data) {
+        if (url && body.user_id) {
             console.log('Sending request to Auth microservice...');
             const response = await axios.post(
                 `${AUTH_MICROSERVICE_URL}/api/v1/query`,
-                { ...data, user_id, url },
+                { ...body, url, session_id: body.session_id },
                 {
                     headers: {
                         "Content-Type": "application/json",
                     },
                 }
-            ); 
+            );
             return NextResponse.json(response.data);
         }
 
@@ -36,7 +37,6 @@ export async function POST(request: NextRequest) {
         console.error('Error:', error);
 
         if (axios.isAxiosError(error)) {
-            // Log the response from axios if it's an AxiosError
             console.error('Axios Error Response:', error.response?.data);
         }
 

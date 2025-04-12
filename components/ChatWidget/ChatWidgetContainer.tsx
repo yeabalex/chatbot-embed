@@ -33,22 +33,7 @@ export const ChatWidgetContainer: React.FC<ChatWidgetContainerProps> = ({ isOpen
   const {open, setOpen, toggleOpen} = useOpen()
   
   const prevDimensions = useRef(dimensions);
-  
-  const handleSendMessage = async (content: string) => {
-    addMessage(content, 'user');
-    setLoading(true);
     
-    try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      addMessage("I'm the AI assistant. I'm here to help you with any questions or tasks you might have.", 'assistant');
-    } catch (error) {
-      console.error('Error sending message:', error);
-      addMessage("Sorry, I couldn't process your request. Please try again later.", 'assistant');
-    } finally {
-      setLoading(false);
-    }
-  };
   
   const handleResizeStart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -122,7 +107,7 @@ export const ChatWidgetContainer: React.FC<ChatWidgetContainerProps> = ({ isOpen
             <X size={20} />
           </button>
           <ChatContainer messages={messages} isLoading={isLoading} />
-          <ChatInput onSendMessage={handleSendMessage} disabled={isLoading} />
+          <ChatInput disabled={isLoading} />
           <SettingsPanel isOpen={settingsOpen} onClose={() => setSettingsOpen(false)} />
         </motion.div>
       )}
