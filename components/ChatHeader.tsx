@@ -1,7 +1,6 @@
 'use client';
-import React, { useState } from "react";
+import React from "react";
 import { Bot, Trash2, Settings } from "lucide-react";
-import { X } from "lucide-react";
 
 interface ChatHeaderProps {
   onClearChat: () => void;
@@ -12,7 +11,6 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
   onClearChat,
   onToggleSettings,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="border-b border-gray-200 dark:border-gray-800 p-4 flex justify-between items-center">
       <div className="flex items-center space-x-2">
@@ -33,16 +31,6 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
           className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
         >
           <Trash2 size={20} />
-        </button>
-        <button
-          className="p-2 ml-5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
-        >
-      
-        </button>
-        <button
-          className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
-        >
-      
         </button>
       </div>
     </div>

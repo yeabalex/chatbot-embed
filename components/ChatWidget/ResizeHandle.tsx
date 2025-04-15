@@ -4,10 +4,10 @@ import { Minimize, Maximize } from 'lucide-react';
 interface ResizeHandleProps {
   isExpanded: boolean;
   onToggleExpand: () => void;
-  onResizeStart: (e: React.MouseEvent) => void;
+  onResizeStart?: (e: React.MouseEvent) => void;
 }
 
-export const ResizeHandle: React.FC<ResizeHandleProps> = ({ isExpanded, onToggleExpand, onResizeStart }) => {
+export const ResizeHandle: React.FC<ResizeHandleProps> = ({ isExpanded, onToggleExpand }) => {
   return (
     <div className="absolute top-[26px] right-14 flex items-center">
       <button 

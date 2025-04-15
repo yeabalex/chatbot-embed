@@ -26,7 +26,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
         <div className={`p-4 rounded-lg ${isUser ? 'bg-blue-500 text-white' : 'bg-gray-100 dark:bg-gray-800'}`}>
           <ReactMarkdown
             components={{
-              p: ({ node, ...props }) => <p className={`prose dark:prose-invert ${open?"":"max-w-60"}`} {...props} />,
+              p: ({ ...props }) => <p className={`prose dark:prose-invert ${open?"":"max-w-60"}`} {...props} />,
             }}
           >
             {message.content}

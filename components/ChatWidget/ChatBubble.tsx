@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageSquare, X } from 'lucide-react';
+import { MessageSquare } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface ChatBubbleProps {
@@ -15,7 +15,7 @@ export const ChatBubble: React.FC<ChatBubbleProps> = ({
 }) => {
   return (
     <motion.button
-      className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-blue-500 text-white shadow-lg flex items-center justify-center"
+      className={`fixed w-full h-full rounded-full bg-blue-500 text-white shadow-lg flex items-center justify-center ${isOpen?"hidden":""}`}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
       onClick={onClick}

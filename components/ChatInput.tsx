@@ -3,18 +3,18 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Send } from 'lucide-react';
 import { nanoid } from 'nanoid';
 import axios from 'axios';
-import { usePathname } from 'next/navigation';
 import { useChatStore } from '@/store/chatStore';
 
 interface ChatInputProps {
+  origin?:string,
+  user_id?: string;
   disabled?: boolean;
 }
 
-export const ChatInput: React.FC<ChatInputProps> = ({ disabled = false }) => {
+export const ChatInput: React.FC<ChatInputProps> = ({ origin, user_id, disabled = false }) => {
   const [input, setInput] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [session_id, setSession_id] = useState<string | null>(null);
-  const pathname = usePathname();
   const { addMessage, setLoading } = useChatStore();
 
     useEffect(() => {
@@ -44,7 +44,8 @@ export const ChatInput: React.FC<ChatInputProps> = ({ disabled = false }) => {
             const response = await axios.post('http://localhost:3001/api/v1/query', {
               input_text: input.trim(),
               session_id: session_id,
-              user_id: pathname.split('/')[1],
+              user_id: user_id,
+              url:origin
             });
             
             // Add response from server

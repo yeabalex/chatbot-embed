@@ -7,6 +7,7 @@ dotenv.config();
 
 export async function POST(request: NextRequest) {
     const AUTH_MICROSERVICE_URL = process.env.AUTH_MICROSERVICE_URL!;
+    console.log("heya")
     
     const body = await request.json(); // Read it only once
     console.log(body); // Use the already-read body
@@ -16,7 +17,7 @@ export async function POST(request: NextRequest) {
         const url = await redis.get(redisKey);
         console.log({ ...body, url });
 
-        if (url && body.user_id) {
+        if ((url && body.user_id)&&(url===body.url)) {
             console.log('Sending request to Auth microservice...');
             const response = await axios.post(
                 `${AUTH_MICROSERVICE_URL}/api/v1/query`,
