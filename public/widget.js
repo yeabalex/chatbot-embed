@@ -12,7 +12,7 @@
   
     const iframe = document.createElement('iframe');
     iframe.id = 'chat-widget-iframe';
-    iframe.src = `http://localhost:3001/chat?user_id=${userId}&origin=${encodeURIComponent(origin)}`;
+    iframe.src = `https://chatbot-embed-phi.vercel.app/chat?user_id=${userId}&origin=${encodeURIComponent(origin)}`;
     iframe.style.position = 'fixed';
     iframe.style.bottom = '20px';
     iframe.style.right = '20px';
