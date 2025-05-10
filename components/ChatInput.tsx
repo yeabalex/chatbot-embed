@@ -41,7 +41,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({ origin, user_id, disabled 
               throw new Error('No session ID available');
             }
             
-            const response = await axios.post('https://chatbot-embed-phi.vercel.app/api/v1/query', {
+            const response = await axios.post('http://localhost:3001/api/v1/query', {
               input_text: input.trim(),
               session_id: session_id,
               user_id: user_id,

@@ -15,9 +15,8 @@ export async function POST(request: NextRequest) {
 
     try {
         const url = await redis.get(redisKey);
-        console.log({ ...body, url });
 
-        if ((url && body.user_id)&&(url===body.url)) {
+        if ((url && body.user_id)&&(JSON.parse(url).includes(body.url))) {
             console.log('Sending request to Auth microservice...');
             const response = await axios.post(
                 `${AUTH_MICROSERVICE_URL}/api/v1/query`,
@@ -31,7 +30,6 @@ export async function POST(request: NextRequest) {
             return NextResponse.json(response.data);
         }
 
-        console.log('Invalid request - missing data or URL mismatch');
         return NextResponse.json({ error: "Invalid request" });
 
     } catch (error) {
